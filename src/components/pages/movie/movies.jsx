@@ -1,11 +1,16 @@
 import React from "react";
-import {getMovies} from "../services/fakeMovieService";
-import Pagination from "./common/pagination";
-import {paginate} from "../utils/paginate";
-import ListGroup from "./common/listGroup";
-import {getGenres} from "../services/fakeGenreService";
+import {deleteMovie, getMovies} from "../../../services/movieService";
+import Pagination from "../../common/pagination";
+import {paginate} from "../../../utils/paginate";
+import ListGroup from "../../common/listGroup";
+import {getGenres} from "../../../services/genreService";
 import _ from 'lodash'
 import MoviesTable from "./moviesTable";
+import {Link} from "react-router-dom";
+import {toast} from "react-toastify";
+
+
+
 
 class Movies extends React.Component {
 
@@ -16,14 +21,18 @@ class Movies extends React.Component {
         currentPage: 1,
         selectedGenre: null,
         sortColumn: {path: 'title', order: 'asc'}
-
     }
 
 
-    componentDidMount() {
-        const genres = [{name:'All Genres', _id:''},...getGenres()]
-        this.setState({allMovies: getMovies(), genres})
+    async componentDidMount() {
+        const {data} = await getGenres()
+        const genres = [{name:'All Genres', _id:''},...data]
+        const {data:movies} = await getMovies()
+        this.setState({allMovies: movies, genres})
     }
+
+
+
 
     handleGenreSelect = genre =>{
         this.setState({selectedGenre: genre,currentPage:1})
@@ -33,9 +42,17 @@ class Movies extends React.Component {
         this.setState({sortColumn})
     }
 
-    handleDelete = movie => {
+    handleDelete = async movie => {
+        const originalMovies = this.state.movies;
         const movies = this.state.allMovies.filter(m => m._id !== movie._id);
         this.setState({allMovies:movies});
+        try {
+            await deleteMovie(movie._id);
+        }catch (ex) {
+            if(ex.response && ex.response.status === 404)
+                toast.error('This movie has already deleted.')
+            this.setState({movies:originalMovies})
+        }
     }
 
     handlePageChange = page => {
@@ -54,7 +71,11 @@ class Movies extends React.Component {
         const movies = paginate(sorted, currentPage, pageSize)
 
         return (
+
             <div className="row">
+
+
+
                 <div className="col-3">
                     <ListGroup
                         items={genres}
@@ -63,6 +84,7 @@ class Movies extends React.Component {
                     />
                 </div>
                 <div className="col">
+                    <Link to={`/movies/new`} className="btn btn-primary mb-4">New Movie</Link>
                     <p> Showing {filtered.length} movies in the database</p>
                     <MoviesTable movies={movies}
                                  onDelete={this.handleDelete}
