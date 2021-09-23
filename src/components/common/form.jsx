@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import * as Joi from "joi-browser";
-import Input from "./input";
+import {Input} from "./input";
 
 class Form extends Component {
 
@@ -39,6 +39,12 @@ class Form extends Component {
         const data = {...this.state.data};
         data[input.name] = input.value;
         this.setState({data,errors})
+    }
+
+    isExpectedError(error){
+        return error.response &&
+            error.response.status >= 400 &&
+            error.response.status < 500
     }
 
     renderButton(label) {

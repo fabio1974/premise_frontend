@@ -14,9 +14,6 @@ axios.interceptors.response.use(null, error => {
         console.log(error)
     }
 
-
-    toast.error('Generic Expected error', error)
-
     return Promise.reject(error);  //<= pass control do any catch block
 })
 

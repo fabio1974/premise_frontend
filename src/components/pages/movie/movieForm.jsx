@@ -1,11 +1,10 @@
 import React from 'react';
 import * as Joi from "joi-browser";
 import Form from "../../common/form";
-import {genres} from "../../../services/fakeGenreService";
-import {getMovie, getMovies} from "../../../services/movieService";
+import {getGenres} from "../../../services/genreService";
+import {getMovie} from "../../../services/movieService";
 import http from "../../../services/httpService";
 import config from '../../../config.json'
-import {getGenres} from "../../../services/genreService";
 
 class MovieForm extends Form {
 
@@ -13,6 +12,11 @@ class MovieForm extends Form {
         data: {title:'',genreId:'', numberInStock:'', dailyRentalRate:''},
         errors:{}
     };
+
+    async componentDidMount() {
+        await this.populateGenders();
+        await this.populateMovies();
+    }
 
     async populateGenders(){
         const {data:genres} = await getGenres();
@@ -33,10 +37,7 @@ class MovieForm extends Form {
         }
     }
 
-    async componentDidMount() {
-        await this.populateGenders();
-        await this.populateMovies();
-    }
+
 
     schema = {
         title: Joi.string().required().min(8).label("Title"),
@@ -97,7 +98,7 @@ class MovieForm extends Form {
                     <h1 className="mb-4">{(this.id==='new')?'New':''} Movie Form</h1>
                         <form onSubmit={this.handleSubmit} action="">
                             {this.renderInput("title","Title")}
-                            {this.renderInput("genreId","Genre","select",genres)}
+                           {/* {this.renderInput("genreId","Genre","select",genres)}*/}
                             {this.renderInput("numberInStock","Number in Stock", 'number')}
                             {this.renderInput("dailyRentalRate","Rate","number")}
                             {this.renderBackButton('Back',history)}

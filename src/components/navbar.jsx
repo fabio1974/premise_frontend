@@ -8,7 +8,10 @@ const NavBar = ({totalCounters}) => {
 
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/">Navbar</Link>
+                <Link className="navbar-brand" to="/">
+                    <img className="mb-2" src="https://www.premise.com/wp-content/uploads/2021/09/premise_logo_coral.png"
+                         alt="" height="20"/>
+                </Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
                         aria-label="Toggle navigation">
