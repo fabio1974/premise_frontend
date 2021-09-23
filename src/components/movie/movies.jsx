@@ -12,7 +12,6 @@ import {getCurrenUser} from "../../services/authService";
 
 
 
-
 class Movies extends React.Component {
 
     state = {
@@ -70,6 +69,7 @@ class Movies extends React.Component {
         const {user} = this.props;
         const {length: count} = this.state.allMovies
         const {pageSize, currentPage, allMovies, genres, selectedGenre, sortColumn} = this.state;
+
         if (count === 0) {
             return (
                 <React.Fragment>
@@ -81,15 +81,11 @@ class Movies extends React.Component {
 
         const filtered = selectedGenre && selectedGenre._id? allMovies.filter(m => m.genre._id === selectedGenre._id): allMovies;
         const sorted =  _.orderBy(filtered,[sortColumn.path], [sortColumn.order])
-
         const movies = paginate(sorted, currentPage, pageSize)
 
         return (
 
             <div className="row">
-
-
-
                 <div className="col-3">
                     <ListGroup
                         items={genres}
