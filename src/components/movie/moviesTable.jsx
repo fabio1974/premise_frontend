@@ -15,7 +15,7 @@ class MoviesTable extends Component {
         {path:'voteAverage', label : 'Vote Avg'},
         {
             content: movie => (
-                <button disabled={!this.props.user || !this.props.user.isAdmin} onClick={() => this.props.onDelete(movie)}
+                <button /*disabled={!this.props.user || !this.props.user.isAdmin}*/ onClick={() => this.props.onDelete(movie)}
                         className="btn btn-danger btn-sm">Delete
                 </button>
             )

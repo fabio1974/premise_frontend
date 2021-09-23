@@ -8,6 +8,7 @@ import _ from 'lodash'
 import MoviesTable from "./moviesTable";
 import {Link} from "react-router-dom";
 import {toast} from "react-toastify";
+import {getCurrenUser} from "../../services/authService";
 
 
 
@@ -17,7 +18,7 @@ class Movies extends React.Component {
     state = {
         allMovies: [],
         genres: [],
-        pageSize: 4,
+        pageSize: 10,
         currentPage: 1,
         selectedGenre: null,
         sortColumn: {path: 'title', order: 'asc'}
@@ -28,6 +29,11 @@ class Movies extends React.Component {
         const {data} = await getGenres()
         const genres = [{name:'All Genres', _id:''},...data]
         const {data:movies} = await getMovies()
+        movies.map(m=>{
+            m['genre']=genres.find(it=>it._id===m['genreId'])
+            delete m['genreId']
+            return m
+        })
         this.setState({allMovies: movies, genres})
     }
 
@@ -41,7 +47,7 @@ class Movies extends React.Component {
     }
 
     handleDelete = async movie => {
-        const originalMovies = this.state.movies;
+        const originalMovies = this.state.allMovies;
         const movies = this.state.allMovies.filter(m => m._id !== movie._id);
         this.setState({allMovies:movies});
         try {
@@ -49,7 +55,10 @@ class Movies extends React.Component {
         }catch (ex) {
             if(ex.response && ex.response.status === 404)
                 toast.error('This movie has already deleted.')
-            this.setState({movies:originalMovies})
+            else if(ex.response && ex.response.status === 403){
+                toast.error(ex.response.data)
+            }
+            this.setState({allMovies:originalMovies})
         }
     }
 
@@ -61,12 +70,18 @@ class Movies extends React.Component {
         const {user} = this.props;
         const {length: count} = this.state.allMovies
         const {pageSize, currentPage, allMovies, genres, selectedGenre, sortColumn} = this.state;
-        if (count === 0)
-            return <p>There are no movies in the database</p>
+        if (count === 0) {
+            return (
+                <React.Fragment>
+                    <p>There are no movies in the database</p>
+                    {getCurrenUser().isAdmin && <Link to={`/movies/new`} className="btn btn-primary mb-4">New Movie</Link>}
+                </React.Fragment>
+            )
+        }
 
         const filtered = selectedGenre && selectedGenre._id? allMovies.filter(m => m.genre._id === selectedGenre._id): allMovies;
-
         const sorted =  _.orderBy(filtered,[sortColumn.path], [sortColumn.order])
+
         const movies = paginate(sorted, currentPage, pageSize)
 
         return (
@@ -83,7 +98,7 @@ class Movies extends React.Component {
                     />
                 </div>
                 <div className="col">
-                    <Link to={`/movies/new`} className="btn btn-primary mb-4">New Movie</Link>
+                    {getCurrenUser().isAdmin && <Link to={`/movies/new`} className="btn btn-primary mb-4">New Movie</Link>}
                     <p> Showing {filtered.length} movies in the database</p>
                     <MoviesTable movies={movies}
                                  user={user}

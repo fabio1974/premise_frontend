@@ -4,7 +4,7 @@ import {toast} from "react-toastify";
 
 
 axios.interceptors.response.use(null, error => {
-    console.log('INTERCEPTOR CALLING ', error.response)
+    //console.log('INTERCEPTOR CALLING ', error.response)
     const expectedError =
         error.response &&
         error.response.status >= 400 &&

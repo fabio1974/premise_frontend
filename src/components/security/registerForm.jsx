@@ -23,7 +23,7 @@ class RegisterForm extends Form {
             auth.loginRegister(response.headers['x-auth-token'])
             window.location = '/'
         }catch (e) {
-            if(this.isExpectedError(e)){
+            if(this.isClientError(e)){
                 const errors = {...this.state.errors};
                 errors.username = e.response.data
                 this.setState({errors})

@@ -22,7 +22,7 @@ class LoginForm extends Form {
             await login(this.state.data)
             window.location = '/'
         } catch (e) {
-            if (this.isExpectedError(e)) {
+            if (this.isClientError(e)) {
                 toast.error(e.response.data)
             }
         }

@@ -15,11 +15,10 @@ export function deleteMovie(id) {
     return http.delete(`${apiUrl}/${path}/${id}`)
 }
 
-export function saveMovie(movie) {
-    if(movie._id){
-        const body= {...movie};
-        delete body._id
-        return http.put(`${apiUrl}/${path}/${movie._id}`,body);
-    }
+export function updateMovie(movie,_id) {
+     return http.put(`${apiUrl}/${path}/${_id}`,movie);
+}
+
+export function createMovie(movie) {
     return http.post(`${apiUrl}/${path}`,movie);
 }
