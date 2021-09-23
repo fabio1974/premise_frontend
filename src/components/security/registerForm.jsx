@@ -2,6 +2,7 @@ import React from 'react';
 import * as Joi from "joi-browser";
 import Form from "../common/form";
 import {register} from "../../services/userService";
+import auth from "../../services/authService";
 
 class RegisterForm extends Form {
 
@@ -18,11 +19,9 @@ class RegisterForm extends Form {
 
     doSubmit = async () =>{
         try {
-            await register(this.state.data)
-
-            localStorage.setItem('token',jwt)
-            this.props.history.push("/")
-
+            const response = await register(this.state.data)
+            auth.loginRegister(response.headers['x-auth-token'])
+            window.location = '/'
         }catch (e) {
             if(this.isExpectedError(e)){
                 const errors = {...this.state.errors};
@@ -40,7 +39,7 @@ class RegisterForm extends Form {
                         <main className="form-signin">
                             <img className="mb-4"
                                  src="https://www.premise.com/wp-content/uploads/2021/09/premise_logo_coral.png"
-                                 alt="" height="47"/>
+                                 alt="" height="57"/>
                             <form onSubmit={this.handleSubmit} action="">
                                 {this.renderInput("username","Username")}
                                 {this.renderInput("password","Password","password")}

@@ -1,17 +1,18 @@
 import React from 'react';
 import * as Joi from "joi-browser";
-import Form from "../../common/form";
-import {getGenres} from "../../../services/genreService";
-import {getMovie} from "../../../services/movieService";
-import http from "../../../services/httpService";
-import config from '../../../config.json'
+import Form from "../common/form";
+import {getGenres} from "../../services/genreService";
+import {getMovie} from "../../services/movieService";
+import http from "../../services/httpService";
+import config from '../../config.json'
 
 class MovieForm extends Form {
 
     state = {
-        data: {title:'',genreId:'', numberInStock:'', dailyRentalRate:''},
+        data: {title:'',genreId:'', popularity:'', voteAverage:'', posterPath: ''},
         errors:{}
     };
+
 
     async componentDidMount() {
         await this.populateGenders();
@@ -29,8 +30,8 @@ class MovieForm extends Form {
             if(id==='new') return;
 
             const {data:movie} = await getMovie(id)
-            const {title,genre,numberInStock,dailyRentalRate} = movie
-            this.setState({data:{title,genreId:genre['_id'],numberInStock,dailyRentalRate}})
+            const {title,genre,popularity,voteAverage} = movie
+            this.setState({data:{title,genreId:genre['_id'],popularity,voteAverage}})
         }catch (ex) {
             if(ex.response && ex.response.status===404)
                 return this.props.history.replace("/not-found");
@@ -40,11 +41,13 @@ class MovieForm extends Form {
 
 
     schema = {
-        title: Joi.string().required().min(8).label("Title"),
+        title: Joi.string().required().min(2).max(255).label("Title"),
         genreId: Joi.required().label("Genre"),
-        numberInStock: Joi.number().min(0).max(100).required().label("Number in Stock"),
-        dailyRentalRate: Joi.number().min(0).max(10).required().label("Rate"),
+        popularity: Joi.number().min(0).required().label("Popularity"),
+        voteAverage: Joi.number().min(0).required().label("Vote Average"),
+        posterPath: Joi.string()
     }
+
 
     doSubmit = async () =>{
         const obj = {title:'a', body: 'b'}
@@ -91,19 +94,22 @@ class MovieForm extends Form {
     render() {
         const {match,history} = this.props
 
-
         return (
             <div className="row mt-4">
                 <div className="col">
                     <h1 className="mb-4">{(this.id==='new')?'New':''} Movie Form</h1>
                         <form onSubmit={this.handleSubmit} action="">
                             {this.renderInput("title","Title")}
-                           {/* {this.renderInput("genreId","Genre","select",genres)}*/}
-                            {this.renderInput("numberInStock","Number in Stock", 'number')}
-                            {this.renderInput("dailyRentalRate","Rate","number")}
+                            {this.renderInput("genreId","Genre","select",[])}
+                            {this.renderInput("popularity","Popularity", 'number')}
+                            {this.renderInput("voteAverage","Vote Average","number")}
+                            {this.renderInput("posterPath","Poster")}
                             {this.renderBackButton('Back',history)}
                             {this.renderButton('Save')}
                         </form>
+
+
+
 
                 </div>
             </div>

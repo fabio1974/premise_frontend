@@ -2,6 +2,7 @@ import axios from "axios";
 import {toast} from "react-toastify";
 
 
+
 axios.interceptors.response.use(null, error => {
     console.log('INTERCEPTOR CALLING ', error.response)
     const expectedError =
@@ -17,9 +18,16 @@ axios.interceptors.response.use(null, error => {
     return Promise.reject(error);  //<= pass control do any catch block
 })
 
+export function setJwt(jwt){
+    if(jwt)
+    axios.defaults.headers.common['x-auth-token'] = jwt
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     get: axios.get,
     post: axios.post,
-    put: axios.put
+    put: axios.put,
+    delete: axios.delete,
+    setJwt
 }

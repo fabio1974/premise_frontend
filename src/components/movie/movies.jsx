@@ -1,9 +1,9 @@
 import React from "react";
-import {deleteMovie, getMovies} from "../../../services/movieService";
-import Pagination from "../../common/pagination";
-import {paginate} from "../../../utils/paginate";
-import ListGroup from "../../common/listGroup";
-import {getGenres} from "../../../services/genreService";
+import {deleteMovie, getMovies} from "../../services/movieService";
+import Pagination from "../common/pagination";
+import {paginate} from "../../utils/paginate";
+import ListGroup from "../common/listGroup";
+import {getGenres} from "../../services/genreService";
 import _ from 'lodash'
 import MoviesTable from "./moviesTable";
 import {Link} from "react-router-dom";
@@ -32,8 +32,6 @@ class Movies extends React.Component {
     }
 
 
-
-
     handleGenreSelect = genre =>{
         this.setState({selectedGenre: genre,currentPage:1})
     };
@@ -60,6 +58,7 @@ class Movies extends React.Component {
     }
 
     render() {
+        const {user} = this.props;
         const {length: count} = this.state.allMovies
         const {pageSize, currentPage, allMovies, genres, selectedGenre, sortColumn} = this.state;
         if (count === 0)
@@ -87,6 +86,7 @@ class Movies extends React.Component {
                     <Link to={`/movies/new`} className="btn btn-primary mb-4">New Movie</Link>
                     <p> Showing {filtered.length} movies in the database</p>
                     <MoviesTable movies={movies}
+                                 user={user}
                                  onDelete={this.handleDelete}
                                  sortColumn={sortColumn}
                                  onSort={this.handleSort} />

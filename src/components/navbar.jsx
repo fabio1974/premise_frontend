@@ -1,8 +1,8 @@
-import React from "react";
+import React, {Fragment} from "react";
 import {Link, NavLink} from "react-router-dom";
 
 
-const NavBar = ({totalCounters}) => {
+const NavBar = ({user}) => {
 
     return (
 
@@ -20,12 +20,18 @@ const NavBar = ({totalCounters}) => {
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
                         <Link className="nav-item nav-link" aria-current="page" to="/">Home</Link>
-                        <NavLink className="nav-item nav-link" to="/movies">Movies</NavLink>
-                        <NavLink className="nav-item nav-link" to="/login">Login</NavLink>
-                        <NavLink className="nav-item nav-link" to="/register">Register</NavLink>
+                        {user && <NavLink className="nav-item nav-link" to="/movies">Movies</NavLink>}
+                        {!user && (<React.Fragment>
+                            <NavLink className="nav-item nav-link" to="/login">Login</NavLink>
+                            <NavLink className="nav-item nav-link" to="/register">Register</NavLink>
+                        </React.Fragment>)
+                        }
                     </div>
                 </div>
-                <Link className="navbar-brand" to="/">Logout</Link>
+                {user && (<React.Fragment>
+                    <div className="nav-item nav-link"><i className="fa fa-user mr-2"/>{user.name}</div>
+                    <NavLink className="navbar-brand" to="/logout">Logout</NavLink>
+                </React.Fragment>)}
             </div>
         </nav>
 

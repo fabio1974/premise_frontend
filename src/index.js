@@ -8,7 +8,7 @@ import {BrowserRouter} from "react-router-dom";
 import {initLog} from './services/logService'
 
 //Sentry
-initLog()
+//initLog()
 
 ReactDOM.render(
   <BrowserRouter>
