@@ -65,7 +65,7 @@ class MovieForm extends Form {
 
 
     render() {
-        console.log("Validade",this.validate())
+        console.log("validade vector ====> ",this.validate())
         const {history} = this.props
         const options = [{_id:'',name:''},...this.state.genres]
         return (
