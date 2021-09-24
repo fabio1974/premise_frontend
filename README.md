@@ -10,8 +10,9 @@ Before run this application you can change [config.json](config.json) to change 
 
 ## Admin User
 After run the application with the steps shown bellow, you can login as Administrator:
-###` 1. user email : premise@andela.com`
-###` 2. password: 12345` 
+
+### ` 1. user email : premise@andela.com`
+### ` 2. password: 12345` 
 
 
 You can also create a non-admin user in the 'Register' option at the top of the Navbar
