@@ -3,6 +3,9 @@ import * as Joi from "joi-browser";
 import Form from "../common/form";
 import {register} from "../../services/userService";
 import auth from "../../services/authService";
+import initRocket from "./logRocket";
+
+
 
 class RegisterForm extends Form {
 
@@ -21,6 +24,7 @@ class RegisterForm extends Form {
         try {
             const response = await register(this.state.data)
             auth.loginRegister(response.headers['x-auth-token'])
+            initRocket()
             window.location = '/'
         }catch (e) {
             if(this.isClientError(e)){

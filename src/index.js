@@ -9,6 +9,8 @@ import {BrowserRouter} from "react-router-dom";
 
 //Sentry
 //initLog()
+import LogRocket from 'logrocket';
+LogRocket.init('6yvkkz/dev');
 
 ReactDOM.render(
   <BrowserRouter>

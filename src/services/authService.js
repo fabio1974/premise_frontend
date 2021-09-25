@@ -1,6 +1,8 @@
 import http from "./httpService";
 import {apiUrl} from "./../config.json"
 import jwtDecode from "jwt-decode";
+import LogRocket from "logrocket";
+import logRocket from "../components/security/logRocket";
 
 const path = 'auth'
 const token = 'token'
@@ -35,6 +37,7 @@ export function getCurrenUser(){
 export function getJwt(){
     return localStorage.getItem(token);
 }
+
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {

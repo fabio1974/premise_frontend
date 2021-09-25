@@ -1,9 +1,10 @@
 import React from 'react';
 import * as Joi from "joi-browser";
 import Form from "../common/form";
-import authService, {login} from "../../services/authService";
+import authService from "../../services/authService";
 import {toast} from "react-toastify";
 import {Redirect} from "react-router-dom";
+import initRocket from "./logRocket";
 
 class LoginForm extends Form {
 
@@ -19,7 +20,8 @@ class LoginForm extends Form {
 
     doSubmit = async () => {
         try {
-            await login(this.state.data)
+            await authService.login(this.state.data)
+            initRocket()
             window.location = '/'
         } catch (e) {
             if (this.isClientError(e)) {
