@@ -22,7 +22,8 @@ class Movies extends React.Component {
         currentPage: 1,
         selectedGenre: null,
         selectedTitle: null,
-        sortColumn: {path: 'title', order: 'asc'}
+        sortColumn: {path: 'title', order: 'asc'},
+        ready:false
     }
 
     async componentDidMount() {
@@ -34,7 +35,7 @@ class Movies extends React.Component {
             delete m['genreId']
             return m
         })
-        this.setState({allMovies: movies, genres})
+        this.setState({allMovies: movies, genres, ready:true})
     }
 
 
@@ -71,12 +72,17 @@ class Movies extends React.Component {
     }
 
     render() {
+
+        if(!this.state.ready)
+            return <div>loading...</div>
+
         const {user} = this.props;
         const {length: count} = this.state.allMovies
         const {pageSize, currentPage, allMovies, genres, selectedGenre, selectedTitle, sortColumn} = this.state;
 
         if (count === 0) {
             return (
+
                 <React.Fragment>
                     <p>There are no movies in the database</p>
                     {getCurrenUser().isAdmin && <Link to={`/movies/new`} className="btn btn-primary mb-4">New Movie</Link>}

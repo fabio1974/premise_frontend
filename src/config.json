@@ -1,4 +1,6 @@
 {
-  "apiEndpoint" : "https://jsonplaceholder.typicode.com/posts",
+  "moviePosterUrl": "https://www.themoviedb.org/t/p/original/",
+  "moviesServiceUrl": "https://api.themoviedb.org/3",
+  "movieApiKey": "cead72f0ce836c05d97430a769039ae3",
   "apiUrl": "http://localhost:8080/api"
 }

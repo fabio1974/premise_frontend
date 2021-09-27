@@ -14,6 +14,7 @@ import './App.css';
 import Logout from "./components/logout";
 import auth from "./services/authService";
 import ProtectedRoute from "./components/common/protectedRoute";
+import Dashboard from "./components/dashboard/dashboard";
 
 
 class App extends Component {
@@ -39,12 +40,12 @@ class App extends Component {
                     <Switch>
                         <Route path="/not-found" component={NotFound}/>
                         <ProtectedRoute path="/movies/:id" component={MovieForm}/>
-                        {/*<ProtectedRoute path="/movies/new" component={MovieForm}/>*/}
                         <ProtectedRoute path="/movies" render={props => <Movies {...props} user={this.state.user} />}/>
                         <Route path="/login" component={LoginForm}/>
                         <Route path="/register" component={RegisterForm}/>
                         <Route path="/logout" component={Logout}/>
                         <Route path="/" exact component={Home}/>
+                        <ProtectedRoute path="/dashboard" component={Dashboard}  />
                         <Redirect to="not-found" />
                     </Switch>
 

@@ -5,6 +5,7 @@ import authService from "../../services/authService";
 import {toast} from "react-toastify";
 import {Redirect} from "react-router-dom";
 import initRocket from "./logRocket";
+import {Card, CardContent} from "@material-ui/core";
 
 class LoginForm extends Form {
 
@@ -32,23 +33,26 @@ class LoginForm extends Form {
 
     render() {
 
-        if(authService.getCurrenUser())
+        if (authService.getCurrenUser())
             return <Redirect to="/"/>
 
         return (
-            <div className="row mt-4">
-                <div className="col-8">&nbsp;</div>
+
+            <div className="row mt-5">
+                <div className="col-6">&nbsp;</div>
                 <div className="col-4">
-                    <main className="form-signin">
-                        <img className="mb-4"
-                             src="https://www.premise.com/wp-content/uploads/2021/09/premise_logo_coral.png"
-                             alt="" height="57"/>
-                        <form onSubmit={this.handleSubmit} action="">
-                            {this.renderInput("username", "Username")}
-                            {this.renderInput("password", "Password", "password")}
-                            {this.renderButton('Login')}
-                        </form>
-                    </main>
+                    <Card>
+                        <CardContent>
+                            <img className="mb-4"
+                                 src="https://www.premise.com/wp-content/uploads/2021/09/premise_logo_coral.png"
+                                 alt="" height="57"/>
+                            <form onSubmit={this.handleSubmit} action="">
+                                {this.renderInput("username", "Username")}
+                                {this.renderInput("password", "Password", "password")}
+                                {this.renderButton('Login')}
+                            </form>
+                        </CardContent>
+                    </Card>
                 </div>
             </div>
         );

@@ -4,35 +4,36 @@ import Form from "../common/form";
 import {getGenres} from "../../services/genreService";
 import {createMovie, getMovie, updateMovie} from "../../services/movieService";
 import {toast} from "react-toastify";
+import {Card, CardContent} from "@material-ui/core";
 
 class MovieForm extends Form {
 
     state = {
-        data: {title:'',genreId:'', popularity:'', voteAverage:'', posterPath: ''},
-        errors:{},
+        data: {title: '', genreId: '', popularity: '', voteAverage: '', posterPath: ''},
+        errors: {},
         genres: [],
     };
 
     async componentDidMount() {
         await this.setGenrerToState()
         const id = this.props.match.params.id;
-        if(id!=='new')
+        if (id !== 'new')
             await this.setMovieToState(id);
     }
 
-    async setGenrerToState(){
-        const {data:genres} = await getGenres();
+    async setGenrerToState() {
+        const {data: genres} = await getGenres();
         this.setState({genres});
     }
 
-    async setMovieToState(id){
-        try{
-            const {data:movie} = await getMovie(id)
+    async setMovieToState(id) {
+        try {
+            const {data: movie} = await getMovie(id)
             delete movie['_id']
             delete movie['__v']
-            this.setState({data:{...movie}})
-        }catch (ex) {
-            if(ex.response && ex.response.status===404)
+            this.setState({data: {...movie}})
+        } catch (ex) {
+            if (ex.response && ex.response.status === 404)
                 return this.props.history.replace("/not-found");
         }
     }
@@ -45,48 +46,51 @@ class MovieForm extends Form {
         posterPath: Joi.string().min(5)
     }
 
-    doSubmit = async () =>{
+    doSubmit = async () => {
         const id = this.props.match.params.id
         try {
-            (id==='new')?await createMovie(this.state.data):await updateMovie(this.state.data,id)
+            (id === 'new') ? await createMovie(this.state.data) : await updateMovie(this.state.data, id)
             return this.props.history.replace("/movies");
         } catch (e) {
             if (this.isClientError(e)) {
-                if(id==='new') {
+                if (id === 'new') {
                     const errors = {...this.state.errors};
                     errors.title = e.response.data
                     this.setState({errors})
-                }else
+                } else
                     toast.error(e.response.data)
             }
         }
     }
 
 
-
     render() {
-        console.log("validade vector ====> ",this.validate())
+        console.log("validade vector ====> ", this.validate())
         const {history} = this.props
-        const options = [{_id:'',name:''},...this.state.genres]
+        const options = [{_id: '', name: ''}, ...this.state.genres]
         return (
-            <div className="row mt-4">
-                <div className="col">
-                    <h1 className="mb-4">{(this.id==='new')?'New':''} Movie Form</h1>
-                        <form onSubmit={this.handleSubmit} action="">
-                            {this.renderInput("title","Title")}
-                            {this.renderInput("genreId","Genre","select",options)}
-                            {this.renderInput("popularity","Popularity", 'number')}
-                            {this.renderInput("voteAverage","Vote Average","number")}
-                            {this.renderInput("posterPath","Poster")}
-                            {this.renderBackButton('Back',history)}
-                            {this.renderButton('Save')}
-                        </form>
+
+            <div className="row mt-5">
+
+                <div className="offset-4 col-4 align-items-center">
+                    <Card>
+                        <CardContent>
+                            <h1 className="mb-4">{(this.id === 'new') ? 'New' : ''} Movie Form</h1>
+                            <form onSubmit={this.handleSubmit} action="">
+                                {this.renderInput("title", "Title")}
+                                {this.renderInput("genreId", "Genre", "select", options)}
+                                {this.renderInput("popularity", "Popularity", 'number')}
+                                {this.renderInput("voteAverage", "Vote Average", "number")}
+                                {this.renderInput("posterPath", "Poster")}
+                                {this.renderBackButton('Back', history)}
+                                {this.renderButton('Save')}
+                            </form>
+                        </CardContent>
+                    </Card>
                 </div>
             </div>
         );
     }
-
-
 
 
 }

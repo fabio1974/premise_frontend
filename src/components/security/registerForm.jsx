@@ -4,6 +4,7 @@ import Form from "../common/form";
 import {register} from "../../services/userService";
 import auth from "../../services/authService";
 import initRocket from "./logRocket";
+import {Card, CardContent} from "@material-ui/core";
 
 
 
@@ -37,10 +38,14 @@ class RegisterForm extends Form {
 
     render() {
         return (
-            <div className="row mt-4">
-                <div className="col-8">&nbsp;</div>
+            <div className="row mt-5">
+                <div className="col-6">&nbsp;</div>
                 <div className="col-4">
-                        <main className="form-signin">
+
+
+                            <Card>
+                                <CardContent>
+
                             <img className="mb-4"
                                  src="https://www.premise.com/wp-content/uploads/2021/09/premise_logo_coral.png"
                                  alt="" height="57"/>
@@ -50,7 +55,9 @@ class RegisterForm extends Form {
                                 {this.renderInput("name","Name")}
                                 {this.renderButton('Register')}
                             </form>
-                        </main>
+                                </CardContent>
+                            </Card>
+
                 </div>
             </div>
         );

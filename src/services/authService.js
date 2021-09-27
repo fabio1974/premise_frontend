@@ -1,13 +1,10 @@
 import http from "./httpService";
 import {apiUrl} from "./../config.json"
 import jwtDecode from "jwt-decode";
-import LogRocket from "logrocket";
-import logRocket from "../components/security/logRocket";
 
 const path = 'auth'
 const token = 'token'
 
-http.setJwt(getJwt())
 
 export async function login(user) {
     const {data:jwt} = await http.post(`${apiUrl}/${path}`,{

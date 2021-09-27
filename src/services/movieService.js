@@ -1,11 +1,17 @@
 import http from "./httpService";
-import {apiUrl} from "./../config.json"
+import {apiUrl, movieApiKey, moviesServiceUrl} from "./../config.json"
 
 const path = 'movies'
 
 export function getMovies() {
     return http.get(`${apiUrl}/${path}`)
 }
+
+export function getMoviesFromExternalWebserviceByGenre(genreId) {
+    return http.get(`${moviesServiceUrl}/discover/movie/?api_key=${movieApiKey}&with_genres=${genreId}`)
+}
+
+
 
 export function getMovie(id) {
     return http.get(`${apiUrl}/${path}/${id}`)

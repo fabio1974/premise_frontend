@@ -6,7 +6,7 @@ const NavBar = ({user}) => {
 
     return (
 
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light mb-0">
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/">
                     <img className="mb-2" src="https://www.premise.com/wp-content/uploads/2021/09/premise_logo_coral.png"
@@ -20,6 +20,7 @@ const NavBar = ({user}) => {
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
                         <Link className="nav-item nav-link" aria-current="page" to="/">Home</Link>
+                        {user && <Link className="nav-item nav-link" aria-current="page" to="/dashboard">Dashboard</Link>}
                         {user && <NavLink className="nav-item nav-link" to="/movies">Movies</NavLink>}
                         {!user && (<React.Fragment>
                             <NavLink className="nav-item nav-link" to="/login">Login</NavLink>
