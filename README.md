@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-A React.js application with simple CRUD operations and security for Authentication/Authorization.
+A React.js application with CRUD operations, a movie image dashboard, and security for Authentication/Authorization.
 
 ## Reaching the backend
 Before run this application you can change [config.json](config.json) to change the 'apiUrl' to the backend which is documented  and published

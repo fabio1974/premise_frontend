@@ -25,9 +25,7 @@ class Dashboard extends Component {
     render() {
         if(!this.state.ready)
             return <div>loading...</div>
-
         return (
-
             <main className="container">
             <div className="mydashboard container-fluid movie-app">
                 {this.state.genres.map(genre =>
