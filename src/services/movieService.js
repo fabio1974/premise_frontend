@@ -11,7 +11,9 @@ export function getMoviesFromExternalWebserviceByGenre(genreId) {
     return http.get(`${moviesServiceUrl}/discover/movie/?api_key=${movieApiKey}&with_genres=${genreId}`)
 }
 
-
+export function getMoviesFromExternalWebservice() {
+    return http.get(`${moviesServiceUrl}/discover/movie/?api_key=${movieApiKey}`)
+}
 
 export function getMovie(id) {
     return http.get(`${apiUrl}/${path}/${id}`)
