@@ -5,7 +5,7 @@ import {register} from "../../services/userService";
 import auth from "../../services/authService";
 import initRocket from "./logRocket";
 import {Card, CardContent} from "@material-ui/core";
-
+import logo from './../../assets/moveltrack.png'
 
 
 class RegisterForm extends Form {
@@ -47,7 +47,7 @@ class RegisterForm extends Form {
                                 <CardContent>
 
                             <img className="mb-4"
-                                 src="https://www.premise.com/wp-content/uploads/2021/09/premise_logo_coral.png"
+                                 src={logo}
                                  alt="" height="57"/>
                             <form onSubmit={this.handleSubmit} action="">
                                 {this.renderInput("username","Username")}

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import {getCurrenUser} from "../services/authService";
 import Hooks from "./movie/hooks";
+import logo from './../assets/moveltrack.png'
 
 class Home extends Component {
     render() {
@@ -13,7 +14,7 @@ class Home extends Component {
 
                             <span className="display-1 d-block">
                                 <img className="mb-4"
-                                     src="https://www.premise.com/wp-content/uploads/2021/09/premise_logo_coral.png"
+                                     src={logo}
                                      alt="" height="57"/>
                             </span>
                             <div className="mb-4 lead">This is a Demo Application </div>

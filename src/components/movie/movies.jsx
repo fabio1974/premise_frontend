@@ -90,8 +90,8 @@ class Movies extends React.Component {
             )
         }
 
-        const genderSelected = selectedGenre && selectedGenre._id? allMovies.filter(m => m.genre._id === selectedGenre._id): allMovies;
-        const filtered = selectedTitle ?  genderSelected.filter(m => m.title === selectedTitle): genderSelected;
+        const genreSelected = selectedGenre && selectedGenre._id? allMovies.filter(m => m.genre._id === selectedGenre._id): allMovies;
+        const filtered = selectedTitle ?  genreSelected.filter(m => m.title === selectedTitle): genreSelected;
         const sorted =  _.orderBy(filtered,[sortColumn.path], [sortColumn.order])
         const movies = paginate(sorted, currentPage, pageSize)
 

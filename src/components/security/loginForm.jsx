@@ -6,6 +6,7 @@ import {toast} from "react-toastify";
 import {Redirect} from "react-router-dom";
 import initRocket from "./logRocket";
 import {Card, CardContent} from "@material-ui/core";
+import logo from './../../assets/moveltrack.png'
 
 class LoginForm extends Form {
 
@@ -44,7 +45,7 @@ class LoginForm extends Form {
                     <Card>
                         <CardContent>
                             <img className="mb-4"
-                                 src="https://www.premise.com/wp-content/uploads/2021/09/premise_logo_coral.png"
+                                 src={logo}
                                  alt="" height="57"/>
                             <form onSubmit={this.handleSubmit} action="">
                                 {this.renderInput("username", "Username")}

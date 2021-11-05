@@ -1,6 +1,6 @@
 import React from "react";
 import {Link, NavLink} from "react-router-dom";
-
+import logo from './../assets/moveltrack.png'
 
 const NavBar = ({user}) => {
 
@@ -9,8 +9,8 @@ const NavBar = ({user}) => {
         <nav className="navbar navbar-expand-lg navbar-light bg-light mb-0">
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/">
-                    <img className="mb-2" src="https://www.premise.com/wp-content/uploads/2021/09/premise_logo_coral.png"
-                         alt="" height="20"/>
+                    <img className="mb-2" src={logo}
+                         alt="Missing" height="20"/>
                 </Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
