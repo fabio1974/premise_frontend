@@ -1,7 +1,8 @@
 import http from "./httpService";
-import {apiUrl, movieApiKey, moviesServiceUrl} from "./../config.json"
+import {movieApiKey, moviesServiceUrl} from "./../config.json"
 
 const path = 'movies'
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export function getMovies() {
     return http.get(`${apiUrl}/${path}`)

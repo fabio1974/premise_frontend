@@ -1,10 +1,10 @@
 import http from "./httpService";
-import {apiUrl} from "./../config.json"
+//import {apiUrl} from "./../config.json"
 import jwtDecode from "jwt-decode";
 
 const path = 'auth'
 const token = 'token'
-
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export async function login(user) {
     const {data:jwt} = await http.post(`${apiUrl}/${path}`,{
