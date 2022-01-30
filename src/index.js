@@ -7,10 +7,14 @@ import 'font-awesome/css/font-awesome.css';
 import {BrowserRouter} from "react-router-dom";
 //import {initLog} from './services/logService'
 
+
+
 //Sentry
 //initLog()
 import LogRocket from 'logrocket';
 LogRocket.init('6yvkkz/dev');
+
+console.log("SuperMan",process.env.REACT_APP_NAME);
 
 ReactDOM.render(
   <BrowserRouter>
