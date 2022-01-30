@@ -1,12 +1,6 @@
-import React, {Component, Fragment} from 'react';
-import {Button} from "@material-ui/core";
-import {getGenres, getGenresFromWebservices} from "../../services/genreService";
-import {getMovies, getMoviesFromExternalWebserviceByGenre} from "../../services/movieService";
-import config from './../../config.json'
+import React, {Component} from 'react';
+import {getGenresFromWebservices} from "../../services/genreService";
 import './dashboard.css'
-import {AddFavorites} from "./addFavorites";
-import Autocomplete from "../common/autoComplete";
-import NavBar from "../navbar";
 import MovieList from "./movieList";
 
 
