@@ -33,6 +33,7 @@ class MovieList extends Component {
                     {
                         this.state.movies.map(movie=> {
                             const posterUrl = `${config.moviePosterUrl}/${movie.poster_path}`
+                            console.log("posterUrl",posterUrl)
                             return (<div key={movie.id} className="image-container d-flex justify-content-start m-3 mb-0">
                                 <img src={posterUrl} width="200" alt="movie"/>
                                 <div className="overlay d-flex align-items-center justify-content-center">

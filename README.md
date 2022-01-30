@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+It is deployed in https://premise-frontend.herokuapp.com/
+
 A React.js application with CRUD operations, a movie image dashboard, and security for Authentication/Authorization.
 
 ## Reaching the backend
